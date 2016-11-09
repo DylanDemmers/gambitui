@@ -18,7 +18,7 @@ angular.module('gambituiApp')
     };
 
     function getLocations (){
-      return http.get(api + "/locations")
+      return http.get("http://gambitapidev.azurewebsites.net/api/Location_lk")
       .then(success)
       .error(failure)
     }

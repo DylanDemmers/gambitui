@@ -1,0 +1,41 @@
+<section>
+        <div class="row">
+        <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Branches</th> 
+                                <th>
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            ng-click="branch.open()">Create</button>
+                                </th>
+                            </tr> 
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in branch.branches track by $index">
+                            <td>{{ b.Branch }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button"
+                                            class="btn btn-sm btn-success"
+                                            ng-click="branch.open(b)"
+                                            title="Edit Branch"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
+                                    
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger"
+                                            ng-click="branch.delete(b, $index)"
+                                            title="Delete Branch"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </div>  
+                            </td>
+                        </tr>  
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+        
+
+    </div>
+    {{branches.branches}}
+</section>

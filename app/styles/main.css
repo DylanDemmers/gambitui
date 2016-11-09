@@ -9,6 +9,15 @@ body {
   padding: 0;
 }
 
+.modal {
+  display: block;
+  z-index: -1;
+}
+
+.modal.fade.in {
+  z-index: 1050;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

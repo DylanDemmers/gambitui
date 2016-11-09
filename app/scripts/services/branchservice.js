@@ -17,7 +17,7 @@ angular.module('gambituiApp')
     };
     
     function getBranches(){
-      return $http.get(api + "/branches")
+      return $http.get("http://gambitapidev.azurewebsites.net/api/Branch_lk")
       .then(success)
       .catch(failure)
     }
@@ -27,7 +27,7 @@ angular.module('gambituiApp')
     }
 
     function failure(error){
-      console.error(error.message);
+      console.error(error);
     }
   };  
 })();
