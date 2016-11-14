@@ -9,7 +9,6 @@
  */
 angular.module('gambituiApp')
   .controller('LocationCtrl', LocationCtrl);
-
   function LocationCtrl (locationService) {
     var vm = this;
     vm.locations = [];
@@ -21,4 +20,5 @@ angular.module('gambituiApp')
     .catch(function(error){
       console.error(error.message);
     })
+   
   }

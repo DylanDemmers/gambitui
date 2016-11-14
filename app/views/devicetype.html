@@ -1,14 +1,12 @@
+
 <section>
     <div  class = "form-group">
             <form novalidate class="simple-form">
-                <input class = "form-control" type="text" ng-model="DeviceType" placeholder="Create Device Type"/>
+                <input class = "form form-control" type="text" ng-model="deviceType.deviceType" placeholder="Create Device Type"/>
                 <br/>
-                <button class = "btn btn-primary" type="submit" ng-click="update()">Create</button> 
+                <input class = "btn btn-primary" type="submit" ng-click="update()"/>
+                <p>{{deviceType.deviceType}}</p>
+            
             </form>
-
-
     </div>
-    {{input}}
-
-    {{devicetype.devices}}
 </section>

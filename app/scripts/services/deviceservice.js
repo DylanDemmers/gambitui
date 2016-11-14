@@ -13,13 +13,14 @@
 angular.module('gambituiApp')
   .factory('deviceService',deviceService);
   
-  function deviceService($https){
+  function deviceService($http){
       return{
         getDevices: getDevices,
+        postdevicetype: postdevicetype,
   };
 
     function getDevices(){
-      return http.get("http://gambitapidev.azurewebsites.net/api/DeviceType_lk")
+      return $http.get("http://gambitapidev.azurewebsites.net/api/DeviceType_lk")
         .then(success)
         .catch(failure)
   }
@@ -31,12 +32,10 @@ angular.module('gambituiApp')
       consolse.error(error.message);
   }
 
-
-
-// function to post branch
-  function postdevicetype(DeviceType) {
+// function to post Device
+    function postdevicetype(DeviceType) {
                     return $http({
-                        url: api.path + 'DeviceType',
+                        url: "http://gambitapidev.azurewebsites.net/api/DeviceType_lk",
                         method: 'POST',
                         data: DeviceType,
                         headers: {'Content-Type': 'application/json'}
@@ -44,12 +43,12 @@ angular.module('gambituiApp')
                         .then(postDeviceComplete)
                         .catch(postDeviceFailed);
 
-                    function postDeviceComplete(res, data) {                                             
+    function postDeviceComplete(res, data) {                                             
                         toastr.success('New Device was added');
-                        return getDevices();
+                    return getDevices();
                     }
 
-                    function postDeviceFailed(err) {
+    function postDeviceFailed(err) {
                         toastr.warning('New Device wasn\'t added');
                     }
                 }

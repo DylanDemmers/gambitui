@@ -10,10 +10,10 @@
 angular.module('gambituiApp')
   .controller('DevicetypeCtrl', deviceTypeCtrl);
 
-  function BranchesCtrl (deviceService) {
+  function deviceTypeCtrl (deviceService) {
     var vm = this;
     vm.devices = [];
-    deviceservice.getDevices()
+    deviceService.getDevices()
     .then(function(result){
       vm.devices = result;      
       return vm.devices;
@@ -22,15 +22,16 @@ angular.module('gambituiApp')
       console.error(error.message);
     })
 
-
-//handle form input for Device Type Creation
-    $scope.input = {};
-    $scope.update = function(DeviceType){
-      $scope.input = angular.copy(DeviceType)
-    };
-
-
+    function update() {
+    //handle form input for Device Type Creation
+    
+    vm.deviceType.deviceType = "laptop";
+    //call post branch to copy input to Backend API
+    }
 
 
+    function postBranch(DeviceType){
+      //Get object from binded data, call device service postdevicetype(binded data)
+    }
 
   }
