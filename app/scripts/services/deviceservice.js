@@ -10,6 +10,8 @@
  * # deviceService
  * Factory in the gambituiApp.
  */
+
+/*----------------------------------------------------Config Device Service----------------------------------------------------------*/
 angular.module('gambituiApp')
   .factory('deviceService',deviceService);
   
@@ -19,6 +21,9 @@ angular.module('gambituiApp')
         postdevicetype: postdevicetype,
   };
 
+
+
+/*------------------------------------------------------Get Call to DB---------------------------------------------------------------*/ 
     function getDevices(){
       return $http.get("http://gambitapidev.azurewebsites.net/api/DeviceType_lk")
         .then(success)
@@ -32,7 +37,7 @@ angular.module('gambituiApp')
       consolse.error(error.message);
   }
 
-// function to post Device
+/*------------------------------------------------------Post Call to DB-------------------------------------------------------------------*/
     function postdevicetype(DeviceType) {
                     return $http({
                         url: "http://gambitapidev.azurewebsites.net/api/DeviceType_lk",
@@ -45,7 +50,7 @@ angular.module('gambituiApp')
 
     function postDeviceComplete(res, data) {                                             
                         toastr.success('New Device was added');
-                    return getDevices();
+                    return res.data;
                     }
 
     function postDeviceFailed(err) {

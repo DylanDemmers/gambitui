@@ -1,7 +1,14 @@
 <section>
+    <div  class = "form-group">
+            <form class="simple-form" ng-submit="location.update(location.newType)">
+                <input class = "form form-control" type="text" ng-model="location.newType.Description" placeholder="Create Location" / ng-required="true">
+                <br/>
+                <input class = "btn btn-primary" type="submit"/>
+            </form>
+    </div>
+
+    <pre>newType {{location.newType|json}}</pre>
 
 
-
-
-{{location.locations}}    
+    <div>{{location.locations}}</div>
 </section>

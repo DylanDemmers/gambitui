@@ -7,31 +7,55 @@
  * # DevicetypeCtrl
  * Controller of the gambituiApp
  */
+
+
+/*---------------------------------------------Device Ctrl Scope setup-------------------------------------------------------------*/
+
 angular.module('gambituiApp')
   .controller('DevicetypeCtrl', deviceTypeCtrl);
 
   function deviceTypeCtrl (deviceService) {
     var vm = this;
     vm.devices = [];
+    vm.newType = {};
+
+
+/*---------------------------------------------Get Devices--------------------------------------------------------------------------*/
+
     deviceService.getDevices()
-    .then(function(result){
+    .then(success)
+    .catch(failure)
+
+    function success(result){
       vm.devices = result;      
       return vm.devices;
-    })
-    .catch(function(error){
+    }
+
+    function failure(error){
       console.error(error.message);
-    })
+    }
 
-    function update() {
-    //handle form input for Device Type Creation
-    
-    vm.deviceType.deviceType = "laptop";
-    //call post branch to copy input to Backend API
+/*---------------------------------------------Post Devices-------------------------------------------------------------------------*/
+    vm.update = function(DeviceType) {
+
+    var DeviceType = postdeviceType(DeviceType);
+    //setup variable to  call postLocatoin to post object to api
     }
 
 
-    function postBranch(DeviceType){
-      //Get object from binded data, call device service postdevicetype(binded data)
+    function postdeviceType(DeviceType){
+      //Object passed in is Encapsulated Object drawn from Update function called in DeviceType.html, call device service postdevicetype()
+      deviceService.postdevicetype(DeviceType)
+      .then(success)
+      .catch(failure)
+
+    function success(result){
+        deviceService.getDevices();
+        return result;
     }
 
+    function failure(error){
+        console.error(error.message);
+    }
   }
+}
