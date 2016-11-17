@@ -9,6 +9,18 @@
 
     <pre>newType {{location.newType|json}}</pre>
 
-
-    <div>{{location.locations}}</div>
+    <div class = "row">
+            <div class = "col-xs-12"
+            <div class = "table-responsive">
+                <table class = "table">
+                    <th>
+                    Location
+                    </th>
+                    <tr ng-repeat="newType in location.locations">
+                    <td>{{newType.description}}</td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+        </div>
 </section>

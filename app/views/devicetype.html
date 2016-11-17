@@ -1,7 +1,7 @@
 <section>
     <div  class = "form-group">
             <form class="simple-form" ng-submit="deviceType.update(deviceType.newType)">
-                <input class = "form form-control" type="text" ng-model="deviceType.newType.Desciption" placeholder="Create Device Type"/ ng-required="true">
+                <input class = "form form-control" type="text" ng-model="deviceType.newType.desciption" placeholder="Create Device Type"/ ng-required="true">
                 <br/>
                 <input class = "btn btn-primary" type="submit"/>
             </form>
@@ -9,5 +9,19 @@
 
     <pre>newType {{deviceType.newType|json}}</pre>
 
-    <div>{{deviceType.devices}}</div>
+    <div class = "row">
+        <div class = "col-xs-12"
+          <div class = "table-responsive">
+              <table class = "table">
+                <th>
+                  Device Type
+                </th>
+                <tr ng-repeat="newType in deviceType.devices">
+                  <td>{{newType.desciption}}</td>
+                </tr>
+              </table>
+          </div>
+        </div>
+    </div>
+
 </section>

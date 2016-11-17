@@ -12,32 +12,48 @@
 
 angular.module('gambituiApp')
   .controller('LocationCtrl', LocationCtrl);
-  function LocationCtrl (locationService) {
+  function LocationCtrl (locationService, $filter) {
     var vm = this;
     vm.locations = [];
     vm.newType = {};
 
-
-/*----------------------------------------------Get Locations-------------------------------------------------------------------------*/
-    locationService.getLocations()
-    .then(success)
-    .catch(failure)
-
-    function success(result){
-      vm.locations = result;      
-      return vm.locations;
-    }
-
     function failure(error){
       console.error(error.message);
     }
+
+/*----------------------------------------------Get Locations-------------------------------------------------------------------------*/
+   
+   
+     function activate(){
+        getLocations();
+     }
+
+   
+   function getLocations(){
+        locationService.getLocations()
+        .then(getLocationSuccess)
+        .catch(failure)
+        
+      function getLocationSuccess(result){
+        vm.locations = result;      
+        return vm.locations;
+      }
+    }
+
+
    
 /*-----------------------------------------------Post Locations-----------------------------------------------------------------------*/
     vm.update = function(Location) {
-   
-    var Location = postLocation(Location); 
+      var inList = $filter("filter")(vm.locations,{description:Location.Description},true);
+     //can write own filterby function, return true
+      if(inList.length > 0){
+        toastr.error("Device type already in Database")
+      }
+      else{
+          var DeviceType = postLocation(Location);
+      //setup variable to  call postLocatoin to post object to api
+      }
     //setup variable to  call postLocatoin to post object to api
-
     }
 
 
@@ -48,12 +64,8 @@ angular.module('gambituiApp')
         .catch(failure)
 
     function success(result){
-            locationService.getLocations();
-            return result;
-          }
-
-    function failure(error){
-            console.error(error.message);
+           activate();
           }
     }
+  activate();
 }

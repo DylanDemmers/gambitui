@@ -14,32 +14,44 @@
 angular.module('gambituiApp')
   .controller('DevicetypeCtrl', deviceTypeCtrl);
 
-  function deviceTypeCtrl (deviceService) {
+  function deviceTypeCtrl (deviceService, $filter) {
     var vm = this;
     vm.devices = [];
     vm.newType = {};
-
+    function failure(error){
+            console.error(error.message);
+        }
 
 /*---------------------------------------------Get Devices--------------------------------------------------------------------------*/
 
-    deviceService.getDevices()
-    .then(success)
+   
+
+  function activate(){
+    getDevices();
+  }
+
+  function getDevices(){
+     deviceService.getDevices()
+    .then(getDevicesSuccess)
     .catch(failure)
 
-    function success(result){
+    function getDevicesSuccess(result){
       vm.devices = result;      
       return vm.devices;
     }
-
-    function failure(error){
-      console.error(error.message);
-    }
-
+  }
 /*---------------------------------------------Post Devices-------------------------------------------------------------------------*/
     vm.update = function(DeviceType) {
+     var inList = $filter("filter")(vm.devices,{desciption:DeviceType.desciption},true);
+     //can write own filterby function, return true
+      if(inList.length > 0){
+        toastr.error("Device type already in Database")
+      }
+      else{
+          var DeviceType = postdeviceType(DeviceType);
+      //setup variable to  call postLocatoin to post object to api
+      }
 
-    var DeviceType = postdeviceType(DeviceType);
-    //setup variable to  call postLocatoin to post object to api
     }
 
 
@@ -49,13 +61,11 @@ angular.module('gambituiApp')
       .then(success)
       .catch(failure)
 
-    function success(result){
-        deviceService.getDevices();
-        return result;
-    }
+        function success(result){
+           activate();
+        }
 
-    function failure(error){
-        console.error(error.message);
-    }
+
   }
+activate();
 }
