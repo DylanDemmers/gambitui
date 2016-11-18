@@ -42,6 +42,11 @@ angular
         controller: 'BranchesCtrl',
         controllerAs: 'branches'
       })
+      .when('/asset', {
+        templateUrl: 'views/asset.html',
+        controller: 'AssetCtrl',
+        controllerAs: 'asset'
+      })
       .otherwise({
         redirectTo: '/'
       });

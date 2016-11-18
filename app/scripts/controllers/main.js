@@ -8,10 +8,10 @@
  * Controller of the gambituiApp
  */
 angular.module('gambituiApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('MainCtrl', mainCtrl);
+
+
+  function mainCtrl(assetService) {
+    var vm = this;
+    vm.assets = [];
+  }

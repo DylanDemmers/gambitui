@@ -1,0 +1,40 @@
+<section>
+    <div>
+       <form class = "simple-form" ng-submit="asset.update(asset.assetObj)">
+            <select class = "form form-control" name="devices" ng-model = "asset.assetObj.DeviceTypeID">
+                <option value="">Choose Device Type</option>
+                <option ng-repeat="x in asset.devices" value = {{x.id}}>{{x.desciption}}</option>
+            </select>
+            <br>
+            <select class = "form form-control" name="Location"  ng-model = "asset.assetObj.LocationID">
+                 <option value="">Choose Location</option>
+                <option ng-repeat="x in asset.locations" value = {{x.id}}>{{x.description}}</option>
+            </select>
+            <br>
+            <select class = "form form-control" name="Branch" ng-model = "asset.assetObj.BranchID">
+                <option value="">Choose Branch</option>
+                <option  ng-repeat="x in asset.branches" value = {{x.id}}>{{x.branch}}</option>
+            </select>
+            <br>    
+            <input class = "form form-control" type="text" ng-model="asset.assetObj.Name" placeholder="Name"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="asset.assetObj.Manufacturer" placeholder="Manufacturer"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="asset.assetObj.Size" placeholder="Size"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="asset.assetObj.Model" placeholder="Model"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="asset.assetObj.OperatingSystem" placeholder="OperatingSystem"/ ng-required="true">
+            <br>
+            <input class = "btn btn-primary" type = "submit"/>
+       </form>
+
+       <br>
+       <pre> assetObj {{asset.assetObj|json}}</pre>
+       <br>
+
+
+       {{asset.assets}}
+
+    </div>       
+</section>

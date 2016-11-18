@@ -22,7 +22,6 @@ angular.module('gambituiApp')
     };
 
 
-
 /*------------------------------------------------------Get Call to DB---------------------------------------------------------------*/ 
     function getLocations (){
       return $http.get("http://gambitapidev.azurewebsites.net/api/Location_lk")

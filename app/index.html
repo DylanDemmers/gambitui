@@ -42,6 +42,7 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
             <ul class="nav navbar-nav">
                 <li ng-class="{active: vm.isActive('/')}"><a href="#/">Home</a></li>
+                <li ng-class="{active: vm.isActive('/asset')}"><a ng-href="#/asset">Asset</a></li>
                 <li ng-class="{active: vm.isActive('/deviceType')}"><a ng-href="#/deviceType">Device Type</a></li>
                 <li ng-class="{active: vm.isActive('/location')}"><a ng-href="#/location">Locations</a></li>
                 <li ng-class="{active: vm.isActive('/branches')}"><a ng-href="#/branches">Branches</a></li>
@@ -90,6 +91,8 @@
         <script src="scripts/controllers/devicetype.js"></script>
         <script src="scripts/controllers/location.js"></script>
         <script src="scripts/controllers/branches.js"></script>
+        <script src="scripts/services/assetservice.js"></script>
+        <script src="scripts/controllers/asset.js"></script>
         <!-- endbuild -->
 </body>
 </html>
