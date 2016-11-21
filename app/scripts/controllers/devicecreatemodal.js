@@ -2,19 +2,20 @@
 
 /**
  * @ngdoc function
- * @name gambituiApp.controller:AssetCtrl
+ * @name gambituiApp.controller:DevicecreatemodalCtrl
  * @description
- * # AssetCtrl
+ * # DevicecreatemodalCtrl
  * Controller of the gambituiApp
  */
 angular.module('gambituiApp')
-  .controller('AssetCtrl', AssetCtrl);
-  
+  .controller('DevicecreatemodalCtrl',DevicecreatemodalCtrl);
 
-/*----------------------------------------------------------------Config of Controller------------------------------------------------------------------- */
 
-  function AssetCtrl ($filter,assetService,branchService,locationService,deviceService) {
-    var vm = this;
+
+
+
+ function DevicecreatemodalCtrl () {
+   var vm = this;
     var assetObj = {};//stores empty object that POST data will be encapsulated in
     vm.branches = [];//array to store branches of getBranches call
     vm.devices = [];//array to store Devices of getDevices call
@@ -101,5 +102,5 @@ angular.module('gambituiApp')
 
 activate();
 
+    
   }
-

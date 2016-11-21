@@ -17,37 +17,53 @@ angular
     'ngSanitize',
     'ngTouch'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider){
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+       // requireADLogin: true
       })
   
       .when('/deviceType', {
         templateUrl: 'views/devicetype.html',
         controller: 'DevicetypeCtrl',
-        controllerAs: 'deviceType'
+        controllerAs: 'deviceType',
+       // requireADLogin: true
       })
     
       .when('/location', {
         templateUrl: 'views/location.html',
         controller: 'LocationCtrl',
-        controllerAs: 'location'
+        controllerAs: 'location',
+       // requireADLogin: true
       })
    
       .when('/branches', {
         templateUrl: 'views/branches.html',
         controller: 'BranchesCtrl',
-        controllerAs: 'branches'
+        controllerAs: 'branches',
+        //requireADLogin: true
       })
       .when('/asset', {
         templateUrl: 'views/asset.html',
         controller: 'AssetCtrl',
-        controllerAs: 'asset'
+        controllerAs: 'asset',
+       // requireADLogin: true
+      })
+      .when('/deviceCreateModal', {
+        templateUrl: 'views/devicecreatemodal.html',
+        controller: 'DevicecreatemodalCtrl',
+        controllerAs: 'deviceCreateModal'
       })
       .otherwise({
         redirectTo: '/'
       });
-  });
+
+      /* adalAuthenticationServiceProvider.init({
+        tenant: api.adal.tenant,
+        clientId: api.adal.clientId, 
+      }, $httpProvider);*/
+
+  }]);
