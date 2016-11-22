@@ -22,11 +22,13 @@
                      ng-model="main.deviceNameFilter">
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" ng-click="deviceCreateModal.open()">Create New Device</button>
+              <button type="button" class="btn btn-primary" ng-click="main.open()">Create New Device</button>
             </div>
       </div><!-- closing tag for form-group -->
     </form>
   </div><!-- closing tag for form search and create inspector form -->
+
+   <div ng-include="'views/devicecreatemodal.html'"></div>
     <!-- included the devicecreateModal view -->
     <div class="row">
       <div class="table-responsive">

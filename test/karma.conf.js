@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/toastr/toastr.js',
       'bower_components/adal-angular/lib/adal.js',
       'bower_components/adal-angular/lib/adal-angular.js',
+      'bower_components/angular-modal-service/dst/angular-modal-service.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

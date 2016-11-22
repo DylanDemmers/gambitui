@@ -10,36 +10,26 @@
 angular.module('gambituiApp')
   .controller('MainCtrl', mainCtrl);
 
-
+//injecting this throws a unknown injector error $uibModal,
   function mainCtrl(assetService,branchService,locationService,deviceService) {
     var vm = this;
     vm.assets = [];
     vm.devices = [];//array to store Devices of getDevices call
     vm.locations = [];//array to store locatoins of getLocations call
     vm.branches = [];
-
+    vm.branchSearch = {};
+    vm.deviceSearch = "";
+    
 
     vm.animationEnabled = true;
 
 
-     vm.open = function(device) {
+     vm.open = function() {
             var modalInstance = $uibModal.open({
               animation: vm.animationEnabled,
               templateUrl: 'devicecreatemodal.html',
-              controller: 'devicecreatemodal',
+              controller: 'DevicecreatemodalCtrl',
               controllerAs: 'vm',   
-              resolve: { 
-                // resolve allows passing data into a modal. This is good when when using a form to update data in the database
-                inspector: function() {
-                  if (device === null || device === undefined) {
-                        return null;
-                  }
-                  return device;
-                },
-                assets: function() {
-                  return vm.assets;
-                }
-              }
             });
             // modalInstance to return getInspectors when closing inspectorModal
             modalInstance.result.then(function(){
