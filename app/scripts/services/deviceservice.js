@@ -34,7 +34,7 @@ angular.module('gambituiApp')
       return response.data;
   }
     function failure(error){
-      consolse.error(error.message);
+      console.error(error.message);
   }
 
 /*------------------------------------------------------Post Call to DB-------------------------------------------------------------------*/

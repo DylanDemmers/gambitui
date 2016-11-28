@@ -1,4 +1,49 @@
 <section>
-   <p>Hey There</p>   
+<section>
+     <script type="text/ng-template" id="devicecreatemodal.html">
+    <div class = "modal-body">
+       <form class = "simple-form" ng-submit="deviceCreateModal.update(deviceCreateModal.assetObj)">
+            <select class = "form form-control" name="devices" ng-model = "deviceCreateModal.assetObj.DeviceTypeID">
+                <option value="">Choose Device Type</option>
+                <option ng-repeat="x in deviceCreateModal.devices" value = {{x.id}}>{{x.desciption}}</option>
+            </select>
+            <br>
+            <select class = "form form-control" name="Location"  ng-model = "deviceCreateModal.assetObj.LocationID">
+                 <option value="">Choose Location</option>
+                <option ng-repeat="x in deviceCreateModal.locations" value = {{x.id}}>{{x.description}}</option>
+            </select>
+            <br>
+            <select class = "form form-control" name="Branch" ng-model = "deviceCreateModal.assetObj.BranchID">
+                <option value="">Choose Branch</option>
+                <option  ng-repeat="x in deviceCreateModal.branches" value = {{x.id}}>{{x.branch}}</option>
+            </select>
+            <br>    
+            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Name" placeholder="Name"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Manufacturer" placeholder="Manufacturer"/ ng-required="true">
+            <br>
+            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Size" placeholder="Size"/>
+            <br>
+            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Model" placeholder="Model"/>
+            <br>
+            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.OperatingSystem" placeholder="OperatingSystem"/>
+            <br>
+
+            <div class = "modal-footer">
+            <input class = "btn btn-primary" type = "submit"/>
+            <button class="btn btn-warning" 
+                        type="button" 
+                        ng-click="deviceCreateModal.cancel()">Cancel</button>
+            </div>
+       </form>
+
+       <br>
+       <pre> assetObj {{deviceCreateModal.assetObj|json}}</pre>
+       <br>
+
+    </div>       
+</section>
+
+  
 </section>
 

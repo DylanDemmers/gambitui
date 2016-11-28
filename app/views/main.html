@@ -10,8 +10,8 @@
       <div class="row">
           <div class="form-group">
             <div class="col-sm-3">
-                <select class = "form form-control" name="Branches">
-                    <option value="">Choose Branch</option>
+                <select class = "form form-control" name="Branches" ng-model="main.branchSearch">
+                   <option value= "">Choose Branch</option>
                     <option ng-repeat="x in main.branches" value = "main.branchFilter">{{x.branch}}</option>
                 </select>
             </div>
@@ -19,17 +19,18 @@
               <input type="text" 
                      class="form-control"  
                      placeholder="Search Device Name" 
-                     ng-model="main.deviceNameFilter">
+                     ng-model="main.deviceSearch">
             </div>
             <div class="col-sm-2">
               <button type="button" class="btn btn-primary" ng-click="main.open()">Create New Device</button>
             </div>
       </div><!-- closing tag for form-group -->
     </form>
-  </div><!-- closing tag for form search and create inspector form -->
 
-   <div ng-include="'views/devicecreatemodal.html'"></div>
+ <div ng-include="'views/devicecreatemodal.html'"></div>
     <!-- included the devicecreateModal view -->
+
+  </div><!-- closing tag for form search and create inspector form -->
     <div class="row">
       <div class="table-responsive">
         <table class="table table-inspector">
@@ -68,5 +69,7 @@
               </tr>
             </tbody>
         </table>
+                
       </div>
+
     </div>

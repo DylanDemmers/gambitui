@@ -65,6 +65,4 @@ angular.module('gambituiApp')
   };
    
 
-
-
  })();

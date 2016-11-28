@@ -11,7 +11,7 @@ angular.module('gambituiApp')
   .controller('MainCtrl', mainCtrl);
 
 //injecting this throws a unknown injector error $uibModal,
-  function mainCtrl(assetService,branchService,locationService,deviceService) {
+  function mainCtrl($uibModal,assetService,branchService,locationService,deviceService) {
     var vm = this;
     vm.assets = [];
     vm.devices = [];//array to store Devices of getDevices call
@@ -23,18 +23,19 @@ angular.module('gambituiApp')
 
     vm.animationEnabled = true;
 
-
+    
      vm.open = function() {
             var modalInstance = $uibModal.open({
               animation: vm.animationEnabled,
               templateUrl: 'devicecreatemodal.html',
               controller: 'DevicecreatemodalCtrl',
-              controllerAs: 'vm',   
+              controllerAs: 'deviceCreateModal',   
             });
             // modalInstance to return getInspectors when closing inspectorModal
             modalInstance.result.then(function(){
-              getAssets();
+              assetService.getAssets();
             });
+            assetService.getAssets();
           }; // closing tag for modal
 
 
@@ -62,6 +63,27 @@ angular.module('gambituiApp')
           })
         .catch(failure)
 
+    assetService.getAssets()
+        .then(function(result){
+              vm.assets = result;      
+              return vm.assets;
+          })
+        .catch(failure)
+
+      
+     /* function applyFilter(){
+            var inList = $filter("filter")(vm.assets,{BranchID:branchSearch.BranchID},true);
+     //can write own filterby function, return true
+            if(inList.length > 0){
+              assets = inList;
+              toastr.message("Filter Applied");
+             } 
+             else{
+              vm.assets = result;      
+              return vm.assets;
+      //setup variable to  call postLocatoin to post object to api
+             }
+      }*/
     
 
     //error handling function for $http call promise
@@ -71,13 +93,9 @@ angular.module('gambituiApp')
 
 
 
-  assetService.getAssets()
-    .then(function(result){
-      vm.assets = result;      
-      return vm.assets;
-    })
-    .catch(failure)
+
 
   
+ 
     
   }
