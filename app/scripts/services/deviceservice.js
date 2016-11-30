@@ -19,6 +19,7 @@ angular.module('gambituiApp')
       return{
         getDevices: getDevices,
         postdevicetype: postdevicetype,
+        deleteDevice:   deleteDevice,
   };
 
 
@@ -57,6 +58,35 @@ angular.module('gambituiApp')
                         toastr.warning('New Device wasn\'t added');
                     }
                 }
+
+/*------------------------------------------------------Delete Call to DB---------------------------------------------------------------*/ 
+
+    function deleteDevice(DeviceType) {
+                    return $http({
+                            url: "http://gambitapidev.azurewebsites.net/api/DeviceType_lk/" + DeviceType.id,
+                            method: 'DELETE',
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                            .then(deleteDeviceComplete)
+                            .catch(deleteDeviceFailed);
+
+                        function deleteDeviceComplete(req) {                                             
+                            toastr.error('Device Deleted');
+                            return req;
+                        }
+
+                        function deleteDeviceFailed(err) {
+                            toastr.warning('Couldn\'t delete Device');
+                        }
+                } // closing tag for deleteBranch
+
+
+
+
+
+
+
+
 
 
 };

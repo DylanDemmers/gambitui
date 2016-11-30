@@ -23,52 +23,97 @@ angular.module('gambituiApp')
 
     vm.animationEnabled = true;
 
-    
-     vm.open = function() {
-            var modalInstance = $uibModal.open({
-              animation: vm.animationEnabled,
-              templateUrl: 'devicecreatemodal.html',
-              controller: 'DevicecreatemodalCtrl',
-              controllerAs: 'deviceCreateModal',   
-            });
-            // modalInstance to return getInspectors when closing inspectorModal
-            modalInstance.result.then(function(){
-              assetService.getAssets();
-            });
-            assetService.getAssets();
-          }; // closing tag for modal
+
+
+    function activate(){
+        getAssets();
+     }
+
+ /*------------------------------------------------------Modal Call to open for Creation and update---------------------------------------------------------------*/ 
+ 
+        vm.update = function(assetInput) {
+                                var modalInstance = $uibModal.open({
+                                        animation: vm.animationEnabled,
+                                        templateUrl: 'devicecreatemodal.html',
+                                        controller: 'DevicecreatemodalCtrl',
+                                        controllerAs: 'vm', 
+                                        resolve: {
+                                                assetInput: function() {
+                                                        if (assetInput === null || assetInput === undefined) {
+                                                                return null;
+                                                        }
+                                                                return assetInput;
+                                                }
+                                        }
+                                });
+
+                                // when the modal closes it will refresh the data in the array
+                                modalInstance.result.then(function(result){
+                                        vm.assets = result;
+                                });
+                        };
+
+
+
+/*------------------------------------------------------Delete Entry---------------------------------------------------------------*/ 
+
+
+          vm.delete = function (Asset, index) {
+                var alertValue = confirm("You sure you want to delete this Entry?");
+                        
+                   if (alertValue === true) {
+                         assetService.deleteAsset(Asset).then(function(){
+                            vm.assets.splice(index, 1);
+                          });
+                    }    
+                };
 
 
  /*-------------------------------------------------------------------Get Devices--------------------------------------------------------------------------- */
-     deviceService.getDevices()
-       .then(function(result){
-        vm.devices = result;      
-        return vm.devices;
-       })
-      .catch(failure)
+          deviceService.getDevices()
+            .then(getDevicesSuccess)
+            .catch(failure)
 
+
+
+            function getDevicesSuccess(result){
+              vm.devices = result;      
+              return vm.devices;
+            }
 /*-------------------------------------------------------------------Get Branches--------------------------------------------------------------------------- */
-    branchService.getBranches()
-       .then(function(result){
-          vm.branches = result;      
-          return vm.branches;
-         })
-        .catch(failure)
+          branchService.getBranches()
+            .then(getBranchsSuccess)
+            .catch(failure)
+
+
+            function getBranchsSuccess(result){
+                vm.branches = result;      
+                return vm.branches;
+              }
 
 /*-------------------------------------------------------------------Get locations--------------------------------------------------------------------------- */
-    locationService.getLocations()
-        .then(function(result){
-            vm.locations = result;      
-            return vm.locations;
-          })
-        .catch(failure)
+          locationService.getLocations()
+              .then(getLocationsSuccess)
+              .catch(failure)
 
-    assetService.getAssets()
-        .then(function(result){
-              vm.assets = result;      
-              return vm.assets;
-          })
-        .catch(failure)
+              function getLocationsSuccess(result){
+                  vm.locations = result;      
+                  return vm.locations;
+                }
+/*--------------------------------------------------------------------Get Assets----------------------------------------------------------------------------*/
+          function getAssets(){
+              assetService.getAssets()
+                  .then(getAssetsSuccess)
+                  .catch(failure)
+
+                  function getAssetsSuccess(result){
+                        vm.assets = result;      
+                        return vm.assets;
+                    }
+          }
+
+
+/*------------------------------------------------------Filter Devices Table---------------------------------------------------------------*/ 
 
       
      /* function applyFilter(){
@@ -92,10 +137,8 @@ angular.module('gambituiApp')
     }
 
 
+    activate();
 
-
-
-  
  
     
   }

@@ -16,12 +16,16 @@ angular.module('gambituiApp')
   function BranchesCtrl (branchService) {
     var vm = this;
     vm.branches = [];
-    branchService.getBranches()
-    .then(function(result){
-      vm.branches = result;      
-      return vm.branches;
-    })
-    .catch(function(error){
-      console.error(error.message);
-    })
+
+
+
+
+  branchService.getBranches()
+      .then(function(result){
+        vm.branches = result;      
+        return vm.branches;
+      })
+      .catch(function(error){
+        console.error(error.message);
+      })
   }

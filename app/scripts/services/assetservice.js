@@ -20,6 +20,8 @@ angular.module('gambituiApp')
                 return{
                   getAssets: getAssets,     //register get Function
                   postAsset: postAsset,   //register post function
+                  deleteAsset: deleteAsset,
+                  editAsset: editAsset,
                 }
 
 
@@ -60,7 +62,49 @@ angular.module('gambituiApp')
                     toastr.warning('New Asset wasn\'t added');
                   }    
       
-     }
+            }
+
+/*------------------------------------------------------Edit Call to DB---------------------------------------------------------------*/ 
+
+            function editAsset(updatedAsset) {
+                return $http({
+                            url: "http://gambitapidev.azurewebsites.net/api/ITAssets/" + updatedAsset.id,
+                            method: 'PUT',
+                            data: updatedAsset,
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                        .then(editAssetComplete)
+                        .catch(editAssetFailed);
+
+                function editAssetComplete(res, data) {}
+
+                function editAssetFailed(err) {
+                    toastr.warning('Asset wasn\'t updated');
+                }
+            }
+
+
+/*------------------------------------------------------Delete Call to DB---------------------------------------------------------------*/ 
+
+
+                 function deleteAsset(Asset) {
+                        return $http({
+                            url: "http://gambitapidev.azurewebsites.net/api/ITAssets/" + Asset.id,
+                            method: 'DELETE',
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                            .then(deleteAssetComplete)
+                            .catch(deleteAssetFailed);
+
+                        function deleteAssetComplete(req) {                                             
+                            toastr.error('Asset Deleted');
+                            return req;
+                        }
+
+                        function deleteAssetFailed(err) {
+                            toastr.warning('Couldn\'t delete Asset');
+                        }
+                } // closing tag for deleteBranch
             
   };
    

@@ -65,5 +65,32 @@ angular.module('gambituiApp')
 
 
   }
+
+/*------------------------------------------------------Delete Entry---------------------------------------------------------------*/ 
+
+    vm.delete = function (DeviceType, index) {
+          var alertValue = confirm("You sure you want to delete this Entry?");
+                        
+              if (alertValue === true) {
+                   deviceService.deleteDevice(DeviceType).then(function(){
+                      vm.devices.splice(index, 1);
+                      });
+                  }    
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 activate();
 }

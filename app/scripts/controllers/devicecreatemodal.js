@@ -10,8 +10,9 @@
 angular.module('gambituiApp')
   .controller('DevicecreatemodalCtrl',DevicecreatemodalCtrl);
 
+/*------------------------------------------------------Modal Setup---------------------------------------------------------------*/ 
 
- function DevicecreatemodalCtrl ($uibModalInstance,$filter,assetService,branchService,locationService,deviceService) {
+ function DevicecreatemodalCtrl ($uibModalInstance,$filter,assetInput,assetService,branchService,locationService,deviceService) {
     var vm = this;
  
     var assetObj = {};//stores empty object that POST data will be encapsulated in
@@ -20,6 +21,79 @@ angular.module('gambituiApp')
     vm.locations = [];//array to store locatoins of getLocations call
     vm.assets = [];//array to store assets of getAssets call
 
+
+    vm.assetObj = assetInput;//passed in object
+
+/*------------------------------------------------------Resolve Passed in object---------------------------------------------------------------*/ 
+
+    if (vm.assetObj === null) {
+                            vm.assetInput = {
+                                    deviceTypeID: null,
+                                    locationID:null,
+                                    branchID:null,
+                                    name:null,
+                                    manufacturer:null,
+                                    size:null,
+                                    model:null,
+                                    operatingSystem:null,
+                            };
+                    } else if (vm.assetObj.id > 0) {
+                            vm.assetInput = vm.assetObj;
+                    }
+
+
+/*------------------------------------------------------Decide to Update Data or Create Data---------------------------------------------------------------*/ 
+
+
+ vm.createOrUpdate = function (form, assetInput) {
+                        if (!form.$invalid) {
+                                if(vm.assetInput.id !== null && vm.assetInput.id !== undefined && vm.assetInput.id > 0) {
+                                        update(assetInput);
+                                } else {
+                                        create(assetInput);
+                                }
+                        }
+                        activate();
+                };
+
+
+
+/*------------------------------------------------------Update In Modal---------------------------------------------------------------*/ 
+
+
+  function update(Input) {
+                      assetService.editAsset(Input).then(function () {
+                                vm.closeModal();
+                                toastr.info(Input.name + ' was updated');
+                        });
+                }
+
+
+
+/*------------------------------------------------------Create In Modal---------------------------------------------------------------*/ 
+
+ function create(assetObj) {
+     var inList = $filter("filter")(vm.assets,{name:assetObj.name},true);
+     //can write own filterby function, return true
+      if(inList.length > 0){
+        toastr.error("Entry already in Database");
+      }
+      else{
+          postasset(assetObj);
+          vm.closeModal();
+      }
+    }
+
+
+function postasset(assetObj){
+      assetService.postAsset(assetObj)
+      .then(success)
+      .catch(failure)
+
+        function success(result){
+           activate();
+        }
+      }    
 
 /*-------------------------------------------------------------------Get Devices--------------------------------------------------------------------------- */
      deviceService.getDevices()
@@ -45,6 +119,7 @@ angular.module('gambituiApp')
           })
         .catch(failure)
 
+/*--------------------------------------------------------------------Get Assets------------------------------------------------------------------------------ */
 
      assetService.getAssets()
      .then(function(result){
@@ -52,9 +127,6 @@ angular.module('gambituiApp')
            return vm.assets;
          })
       .catch(failure)
-     
-  
-    
 
     
 
@@ -64,54 +136,17 @@ angular.module('gambituiApp')
     }
 
 
-
-
- 
-
-
-
-  function activate(){
-    assetService.getAssets();
-  }
-
- vm.update = function(assetObj) {
-     var inList = $filter("filter")(vm.assets,{name:assetObj.Name},true);
-     //can write own filterby function, return true
-      if(inList.length > 0){
-        toastr.error("Device type already in Database");
-      }
-      else{
-          var assetObj = postasset(assetObj);
-          activate();
-          vm.closeModal();
-      //setup variable to  call postLocatoin to post object to api
-      }
-
-    }
-
-
-     function postasset(assetObj){
-      //Object passed in is Encapsulated Object drawn from Update function called in DeviceType.html, call device service postdevicetype()
-      assetService.postAsset(assetObj)
-      .then(success)
-      .catch(failure)
-
-        function success(result){
-           activate();
-        }
-      }
-
-
+      function activate(){
+          assetService.getAssets();
+       }
+       
         vm.cancel = function () {
               $uibModalInstance.dismiss('cancel');
-              activate();
         };
 
-        vm.closeModal = function () {
-                $uibModalInstance.close();
-                activate();
+        vm.closeModal = function (data) {
+                $uibModalInstance.close(data);
         };
-
 
 activate();
 }

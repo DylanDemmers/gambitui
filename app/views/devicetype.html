@@ -14,8 +14,11 @@
                 <th>
                   Device Type
                 </th>
-                <tr ng-repeat="newType in deviceType.devices">
+                <tr ng-repeat="newType in deviceType.devices track by $index">
                   <td>{{newType.desciption}}</td>
+                  <td>
+                      <button type="button" class="btn btn-danger btn-sm" ng-click="deviceType.delete(newType, $index)" title="Delete Device"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </td>
                 </tr>
               </table>
           </div>

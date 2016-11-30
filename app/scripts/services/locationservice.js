@@ -19,6 +19,7 @@ angular.module('gambituiApp')
     return{
       getLocations: getLocations,
       postLocation: postLocation,
+      deleteLocation: deleteLocation,
     };
 
 
@@ -56,5 +57,28 @@ angular.module('gambituiApp')
                         toastr.warning('New Locaiton wasn\'t added');
                     }
                 }
+
+
+
+
+
+   function deleteLocation(Location) {
+                        return $http({
+                            url: "http://gambitapidev.azurewebsites.net/api/Location_lk/" + Location.id,
+                            method: 'DELETE',
+                            headers: {'Content-Type': 'application/json'}
+                        })
+                            .then(deleteLocationComplete)
+                            .catch(deleteLocationFailed);
+
+                        function deleteLocationComplete(req) {                                             
+                            toastr.error('Location Deleted');
+                            return req;
+                        }
+
+                        function deleteLocationFailed(err) {
+                            toastr.warning('Couldn\'t Delete Location');
+                        }
+                } // closing tag for deleteBranch             
   };
   })();

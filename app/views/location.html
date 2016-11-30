@@ -14,8 +14,13 @@
                     <th>
                     Location
                     </th>
-                    <tr ng-repeat="newType in location.locations">
+                    <tr ng-repeat="newType in location.locations track by $index">
                     <td>{{newType.description}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="location.delete(newType, $index)" title="Delete Device"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </div>
+                    </td>
                     </tr>
                 </table>
             </div>

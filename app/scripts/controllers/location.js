@@ -47,7 +47,7 @@ angular.module('gambituiApp')
       var inList = $filter("filter")(vm.locations,{description:Location.Description},true);
      //can write own filterby function, return true
       if(inList.length > 0){
-        toastr.error("Device type already in Database")
+        toastr.error("Location already in Database")
       }
       else{
           var DeviceType = postLocation(Location);
@@ -55,7 +55,6 @@ angular.module('gambituiApp')
       }
     //setup variable to  call postLocatoin to post object to api
     }
-
 
     function postLocation(Location){
     //Object passed in is Encapsulated Object drawn from Update function called in Location.html, call device service postLocation()
@@ -67,5 +66,21 @@ angular.module('gambituiApp')
            activate();
           }
     }
+
+
+/*------------------------------------------------------Delete Entry---------------------------------------------------------------*/ 
+
+    vm.delete = function (location, index) {
+          var alertValue = confirm("You sure you want to delete this Entry?");
+                        
+              if (alertValue === true) {
+                   locationService.deleteLocation(location).then(function(){
+                      vm.locations.splice(index, 1);
+                      });
+                  }    
+            };
+
+
+
   activate();
 }

@@ -1,44 +1,57 @@
 <section>
 <section>
      <script type="text/ng-template" id="devicecreatemodal.html">
+
+    <div class="modal-header">
+        <h4 class="model-title" ng-if="vm.assetInput.id == null">Create New Asset</h4>
+        <h4 class="model-title" ng-if="vm.assetInput != null && vm.assetInput.id">Edit Asset</h4>
+    </div>
     <div class = "modal-body">
-       <form class = "simple-form" ng-submit="deviceCreateModal.update(deviceCreateModal.assetObj)">
-            <select class = "form form-control" name="devices" ng-model = "deviceCreateModal.assetObj.DeviceTypeID">
-                <option value="">Choose Device Type</option>
-                <option ng-repeat="x in deviceCreateModal.devices" value = {{x.id}}>{{x.desciption}}</option>
+       <form class = "simple-form" ng-submit="vm.createOrUpdate(assetValidate,vm.assetInput)"  name = "assetValidate">
+            <select class = "form form-control" name="devices" ng-model = "vm.assetInput.deviceTypeID">
+               <!-- <option ng-if = "vm.assetInpput.deviceTypeID == null" value="">Choose Device Type</option>
+                <option ng-if = "vm.assetInpput.deviceTypeID != null && vm.assetInput.deviceTypeID" value=" vm.assetInput.deviceTypeID">{{vm.assetInput.deviceTypeID}}</option>
+                -->
+                
+                <option ng-repeat="x in vm.devices" value = {{x.id}}>{{x.desciption}}</option>
+
             </select>
             <br>
-            <select class = "form form-control" name="Location"  ng-model = "deviceCreateModal.assetObj.LocationID">
-                 <option value="">Choose Location</option>
-                <option ng-repeat="x in deviceCreateModal.locations" value = {{x.id}}>{{x.description}}</option>
+            <select class = "form form-control" name="Location"  ng-model = "vm.assetInput.locationID">
+                <option value="">Choose Location</option>
+                <option ng-repeat="x in vm.locations" value = {{x.id}}>{{x.description}}</option>
             </select>
             <br>
-            <select class = "form form-control" name="Branch" ng-model = "deviceCreateModal.assetObj.BranchID">
+            <select class = "form form-control" name="Branch" ng-model = "vm.assetInput.branchID">
                 <option value="">Choose Branch</option>
-                <option  ng-repeat="x in deviceCreateModal.branches" value = {{x.id}}>{{x.branch}}</option>
+                <option  ng-repeat="x in vm.branches" value = {{x.id}}>{{x.branch}}</option>
             </select>
             <br>    
-            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Name" placeholder="Name"/ ng-required="true">
+            <input class = "form form-control" type="text" ng-model="vm.assetInput.name" placeholder="Name"/ ng-required="true">
             <br>
-            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Manufacturer" placeholder="Manufacturer"/ ng-required="true">
+            <input class = "form form-control" type="text" ng-model="vm.assetInput.manufacturer" placeholder="Manufacturer"/ ng-required="true">
             <br>
-            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Size" placeholder="Size"/>
+            <input class = "form form-control" type="text" ng-model="vm.assetInput.size" placeholder="Size"/>
             <br>
-            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.Model" placeholder="Model"/>
+            <input class = "form form-control" type="text" ng-model="vm.assetInput.model" placeholder="Model"/>
             <br>
-            <input class = "form form-control" type="text" ng-model="deviceCreateModal.assetObj.OperatingSystem" placeholder="OperatingSystem"/>
+            <input class = "form form-control" type="text" ng-model="vm.assetInput.operatingSystem" placeholder="OperatingSystem"/>
             <br>
-
             <div class = "modal-footer">
-            <input class = "btn btn-primary" type = "submit"/>
+            <button class="btn btn-primary" 
+                        type="submit"
+                        ng-if="vm.assetObj.id == undefined">Create</button>
+            <button class="btn btn-primary" 
+                        type="submit"
+                        ng-if="vm.assetInput != null && vm.assetInput.id">Update</button>
             <button class="btn btn-warning" 
                         type="button" 
-                        ng-click="deviceCreateModal.cancel()">Cancel</button>
+                        ng-click="vm.cancel()">Cancel</button>
             </div>
        </form>
 
        <br>
-       <pre> assetObj {{deviceCreateModal.assetObj|json}}</pre>
+       <pre> assetObj {{vm.assetInput|json}}</pre>
        <br>
 
     </div>       
