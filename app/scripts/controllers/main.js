@@ -11,7 +11,7 @@ angular.module('gambituiApp')
   .controller('MainCtrl', mainCtrl);
 
 //injecting this throws a unknown injector error $uibModal,
-  function mainCtrl($uibModal,assetService,branchService,locationService,deviceService) {
+  function mainCtrl($uibModal,$filter,assetService,branchService,locationService,deviceService) {
     var vm = this;
     vm.assets = [];
     vm.devices = [];//array to store Devices of getDevices call
@@ -116,8 +116,8 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Filter Devices Table---------------------------------------------------------------*/ 
 
       
-     /* function applyFilter(){
-            var inList = $filter("filter")(vm.assets,{BranchID:branchSearch.BranchID},true);
+/*
+            var inList = $filter("filter")(vm.assets,{id:branchSearch.id},true);
      //can write own filterby function, return true
             if(inList.length > 0){
               assets = inList;
@@ -128,7 +128,7 @@ angular.module('gambituiApp')
               return vm.assets;
       //setup variable to  call postLocatoin to post object to api
              }
-      }*/
+  */    
     
 
     //error handling function for $http call promise

@@ -11,8 +11,8 @@
           <div class="form-group">
             <div class="col-sm-3">
                 <select class = "form form-control" name="Branches" ng-model="main.branchSearch">
-                   <option value= "">Choose Branch</option>
-                    <option ng-repeat="x in main.branches" value = "main.branchFilter">{{x.branch}}</option>
+                    <option value= "">Choose Branch</option>
+                    <option ng-repeat="x in main.branches" value = {{x.id}}>{{x.branch}}</option>
                 </select>
             </div>
             <div class="col-sm-7">
@@ -26,6 +26,7 @@
             </div>
       </div><!-- closing tag for form-group -->
     </form>
+    <pre>branchSearch {{main.branchSearch|json}}</pre>
 
  <div ng-include="'views/devicecreatemodal.html'"></div>
     <!-- included the devicecreateModal view -->
@@ -49,10 +50,10 @@
           </thead>
             <tbody>
               <!-- repeating the data and using filters for drop down select, search and checkbox -->
-              <tr ng-repeat="x in main.assets track by $index">
+              <tr ng-repeat="x in main.assets track by $index | filter: ">
                 <td>Void</td>
-                <td >{{x.name}}</td>
-                <td >{{( main.branches | filter: {id: x.branchID})[0].branch}}</td>
+                <td >{{x.name}}</td>                
+                <td>{{( main.branches | filter: {id: x.branchID})[0].branch}}</td>
                 <td >{{( main.locations | filter: {id: x.locationID})[0].description}}</td>
                 <td>{{( main.devices | filter: {id: x.deviceTypeID})[0].desciption}}</td>
                 <td>{{x.manufacturer}}</td>
