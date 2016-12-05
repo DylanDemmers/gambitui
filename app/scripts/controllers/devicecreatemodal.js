@@ -72,14 +72,14 @@ angular.module('gambituiApp')
 
 /*------------------------------------------------------Create In Modal---------------------------------------------------------------*/ 
 
- function create(assetObj) {
-     var inList = $filter("filter")(vm.assets,{name:assetObj.name},true);
+ function create(data) {
+     var inList = $filter("filter")(vm.assets,{name:data.name},true);
      //can write own filterby function, return true
       if(inList.length > 0){
         toastr.error("Entry already in Database");
       }
       else{
-          postasset(assetObj);
+          postasset(data);
           vm.closeModal();
       }
     }

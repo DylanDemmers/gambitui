@@ -50,6 +50,7 @@ angular.module('gambituiApp')
                                 // when the modal closes it will refresh the data in the array
                                 modalInstance.result.then(function(result){
                                         vm.assets = result;
+                                        getAssets();
                                 });
                         };
 
@@ -115,20 +116,21 @@ angular.module('gambituiApp')
 
 /*------------------------------------------------------Filter Devices Table---------------------------------------------------------------*/ 
 
-      
-/*
-            var inList = $filter("filter")(vm.assets,{id:branchSearch.id},true);
-     //can write own filterby function, return true
-            if(inList.length > 0){
-              assets = inList;
-              toastr.message("Filter Applied");
-             } 
-             else{
-              vm.assets = result;      
-              return vm.assets;
-      //setup variable to  call postLocatoin to post object to api
-             }
-  */    
+
+       vm.onDropdownSelect = function(data){
+                var assetsFiltered = $filter("filter")(vm.assets,{branchID:data});
+        //can write own filterby function, return true
+                if(assetsFiltered.length > 0){
+                  vm.search = vm.branchSearch;
+
+                  toastr.success("Filter Applied");
+                } 
+                else{
+                  toastr.warning("No Results Matching that Filter");      
+          //setup variable to  call postLocatoin to post object to api
+                }
+
+          };
     
 
     //error handling function for $http call promise
@@ -138,7 +140,4 @@ angular.module('gambituiApp')
 
 
     activate();
-
- 
-    
   }

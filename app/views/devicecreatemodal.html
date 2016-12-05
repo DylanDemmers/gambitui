@@ -8,13 +8,10 @@
     </div>
     <div class = "modal-body">
        <form class = "simple-form" ng-submit="vm.createOrUpdate(assetValidate,vm.assetInput)"  name = "assetValidate">
-            <select class = "form form-control" name="devices" ng-model = "vm.assetInput.deviceTypeID">
-               <!-- <option ng-if = "vm.assetInpput.deviceTypeID == null" value="">Choose Device Type</option>
-                <option ng-if = "vm.assetInpput.deviceTypeID != null && vm.assetInput.deviceTypeID" value=" vm.assetInput.deviceTypeID">{{vm.assetInput.deviceTypeID}}</option>
-                -->
-                
+            <select class = "form form-control" name="devices" ng-model = "vm.assetInput.deviceTypeID" value = "">
+                <option ng-if = "vm.assetInput.deviceTypeID == null" value="">Choose Device Type</option>
+                <option ng-if = "vm.assetInput.deviceTypeID != null && vm.assetInput.deviceTypeID" value=" vm.assetInput.deviceTypeID">{{vm.assetInput.deviceTypeID}}</option>
                 <option ng-repeat="x in vm.devices" value = {{x.id}}>{{x.desciption}}</option>
-
             </select>
             <br>
             <select class = "form form-control" name="Location"  ng-model = "vm.assetInput.locationID">
