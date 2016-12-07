@@ -1,3 +1,4 @@
+(function(){
 'use strict';
 
 /**
@@ -17,7 +18,7 @@ angular.module('gambituiApp')
     vm.devices = [];//array to store Devices of getDevices call
     vm.locations = [];//array to store locatoins of getLocations call
     vm.branches = [];
-    vm.branchSearch = {};
+    vm.branchSearch = "";
     vm.deviceSearch = "";
     
 
@@ -127,7 +128,6 @@ angular.module('gambituiApp')
                 } 
                 else{
                   toastr.warning("No Results Matching that Filter");      
-          //setup variable to  call postLocatoin to post object to api
                 }
 
           };
@@ -141,3 +141,4 @@ angular.module('gambituiApp')
 
     activate();
   }
+  })();

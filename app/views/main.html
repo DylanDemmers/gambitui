@@ -8,9 +8,10 @@
     <!-- This belongs to the Inspector Page and its the search field and create button field -->
     <form>
       <div class="row">
-          <div class="form-group">
+          <div class="simple-form">
             <div class="col-sm-3">
-                <select class = "form form-control" name="Branches" ng-model="main.branchSearch" id = "Choose Branch" ng-change = "main.onDropdownSelect(main.branchSearch)">
+                <select class = "form form-control" name="Branches" ng-model="main.branchSearch" ng-change = "main.onDropdownSelect(main.branchSearch)">
+                    <option value = "" ng-selected="main.branchSearch == "" ">Search Device Name</option>
                     <option ng-repeat="x in main.branches" value = {{x.id}}>{{x.branch}}</option>
                 </select>
             </div>
@@ -24,9 +25,11 @@
               <button type="button" class="btn btn-primary" ng-click="main.update()">Create New Device</button>
             </div>
       </div><!-- closing tag for form-group -->
+      <br>
     </form>
-    <pre>branchSearch {{main.branchSearch|json}}</pre>
-    <pre>deviveSearch {{main.deviceSearch|json}}</pre>
+    <br>
+    <!--<pre>branchSearch {{main.branchSearch|json}}</pre>
+    <pre>deviveSearch {{main.deviceSearch|json}}</pre>-->
 
  <div ng-include="'views/devicecreatemodal.html'"></div>
     <!-- included the devicecreateModal view -->
@@ -48,13 +51,8 @@
               <th>Operating System</th>              
             </tr>
           </thead>
-            <tbody>
-              <!-- repeating the data and using filters for drop down select, search and checkbox
-              
-              | filter:{branchID:main.branchSearch.id}[0]       ??????
-              
-               -->
-              <tr ng-repeat="x in main.assets | filter:{branchID:main.search}">
+            <tbody>      
+                <tr ng-repeat="x in main.assets | filter:{branchID:main.search} | filter:{name:main.deviceSearch}">
                 <td>Void</td>
                 <td >{{x.name}}</td>                
                 <td>{{( main.branches | filter: {id: x.branchID})[0].branch}}</td>

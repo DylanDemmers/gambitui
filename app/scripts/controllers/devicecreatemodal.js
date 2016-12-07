@@ -1,5 +1,5 @@
+(function(){  
 'use strict';
-
 /**
  * @ngdoc function
  * @name gambituiApp.controller:DevicecreatemodalCtrl
@@ -63,7 +63,7 @@ angular.module('gambituiApp')
 
   function update(Input) {
                       assetService.editAsset(Input).then(function () {
-                                vm.closeModal();
+                                vm.closeModal(vm.assets);
                                 toastr.info(Input.name + ' was updated');
                         });
                 }
@@ -80,7 +80,7 @@ angular.module('gambituiApp')
       }
       else{
           postasset(data);
-          vm.closeModal();
+          vm.closeModal(vm.assets);
       }
     }
 
@@ -147,6 +147,6 @@ function postasset(assetObj){
         vm.closeModal = function (data) {
                 $uibModalInstance.close(data);
         };
-
-activate();
 }
+
+})();

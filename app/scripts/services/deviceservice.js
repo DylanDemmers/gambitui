@@ -1,6 +1,4 @@
 (function(){    
-
-
 'use strict';
 
 /**
@@ -78,16 +76,6 @@ angular.module('gambituiApp')
                         function deleteDeviceFailed(err) {
                             toastr.warning('Couldn\'t delete Device');
                         }
-                } // closing tag for deleteBranch
-
-
-
-
-
-
-
-
-
-
+                } // closing tag for delete Branch
 };
 })();

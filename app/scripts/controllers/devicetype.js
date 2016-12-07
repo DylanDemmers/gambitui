@@ -1,3 +1,5 @@
+(function(){  
+
 'use strict';
 
 /**
@@ -77,20 +79,6 @@ angular.module('gambituiApp')
                       });
                   }    
             };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 activate();
 }
+})();
