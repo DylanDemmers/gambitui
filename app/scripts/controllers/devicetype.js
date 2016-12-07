@@ -49,7 +49,7 @@ angular.module('gambituiApp')
       }
       else{
           var DeviceType = postdeviceType(DeviceType);
-      //setup variable to  call postLocatoin to post object to api
+      //setup variable to  call post deviceType to post object to api
       }
 
     }
@@ -62,6 +62,7 @@ angular.module('gambituiApp')
       .catch(failure)
 
         function success(result){
+            newType = null;
            activate();
         }
 

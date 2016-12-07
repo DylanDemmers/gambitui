@@ -11,61 +11,62 @@
 angular.module('gambituiApp')
   .controller('MainCtrl', mainCtrl);
 
-//injecting this throws a unknown injector error $uibModal,
   function mainCtrl($uibModal,$filter,assetService,branchService,locationService,deviceService) {
     var vm = this;
-    vm.assets = [];
+    vm.assets = []; //array to store Assets of getassets call
     vm.devices = [];//array to store Devices of getDevices call
     vm.locations = [];//array to store locatoins of getLocations call
-    vm.branches = [];
-    vm.branchSearch = "";
-    vm.deviceSearch = "";
+    vm.branches = []; // array to store branches of getAssets call
+    vm.branchSearch = "";//Empty string used to bind branch search Dropdown Selection too
+    vm.deviceSearch = "";//Empty string used to bind device search text input to
     
 
-    vm.animationEnabled = true;
+    vm.animationEnabled = true;//Animation For Modal
 
 
 
+
+    //Function used to update array after entry. Seperated from Getassets call to avoid promise conflict
     function activate(){
         getAssets();
      }
 
  /*------------------------------------------------------Modal Call to open for Creation and update---------------------------------------------------------------*/ 
- 
-        vm.update = function(assetInput) {
-                                var modalInstance = $uibModal.open({
-                                        animation: vm.animationEnabled,
-                                        templateUrl: 'devicecreatemodal.html',
-                                        controller: 'DevicecreatemodalCtrl',
-                                        controllerAs: 'vm', 
-                                        resolve: {
-                                                assetInput: function() {
-                                                        if (assetInput === null || assetInput === undefined) {
-                                                                return null;
-                                                        }
-                                                                return assetInput;
-                                                }
-                                        }
-                                });
 
-                                // when the modal closes it will refresh the data in the array
-                                modalInstance.result.then(function(result){
-                                        vm.assets = result;
-                                        getAssets();
-                                });
-                        };
+        vm.update = function(assetInput) {                                        //update called from HTML, object passed in by index
+                                    var modalInstance = $uibModal.open({              //Instansiate Instance of Modal call
+                                            animation: vm.animationEnabled,           //Setup
+                                            templateUrl: 'devicecreatemodal.html',    //Html template used for modal
+                                            controller: 'DevicecreatemodalCtrl',      //Controller name used for the modal
+                                            controllerAs: 'vm',                       //Modal Scope name
+                                            resolve: {
+                                                    assetInput: function() {                                          //Resolve AssetInput that is passed into the modal
+                                                            if (assetInput === null || assetInput === undefined) {    //If a null object is passed in, Return NUll
+                                                                    return null;
+                                                            }
+                                                                    return assetInput;                                //Otherwise, Return Object
+                                                    }
+                                            }
+                                     });
+
+                                                                                  
+                                    modalInstance.result.then(function(result){       // when the modal closes it will refresh the data in the array                             
+                                            vm.assets = result;
+                                            getAssets();
+                                    });
+                            };
 
 
 
 /*------------------------------------------------------Delete Entry---------------------------------------------------------------*/ 
 
 
-          vm.delete = function (Asset, index) {
-                var alertValue = confirm("You sure you want to delete this Entry?");
+          vm.delete = function (Asset, index) {                                         //Function to delete Row, an Object and a row index is passed in
+                var alertValue = confirm("You sure you want to delete this Entry?");    
                         
                    if (alertValue === true) {
-                         assetService.deleteAsset(Asset).then(function(){
-                            vm.assets.splice(index, 1);
+                         assetService.deleteAsset(Asset).then(function(){               //Service Call to delete
+                            vm.assets.splice(index, 1);                                 //Object is still in assets array, Splice Handles removal 
                           });
                     }    
                 };
@@ -118,11 +119,11 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Filter Devices Table---------------------------------------------------------------*/ 
 
 
-       vm.onDropdownSelect = function(data){
-                var assetsFiltered = $filter("filter")(vm.assets,{branchID:data});
+       vm.onDropdownSelect = function(data){                                            //Filter for branchSearch
+                var assetsFiltered = $filter("filter")(vm.assets,{branchID:data});      //Array of assets whos branchID matches the branchID of data, data is equal to branchSearch model binding
         //can write own filterby function, return true
-                if(assetsFiltered.length > 0){
-                  vm.search = vm.branchSearch;
+                if(assetsFiltered.length > 0){                                          //If array contains some filtered material
+                  vm.search = vm.branchSearch;                                          //Assign the branchSearch value to a temp Search value which allows for repeated filtering  
 
                   toastr.success("Filter Applied");
                 } 

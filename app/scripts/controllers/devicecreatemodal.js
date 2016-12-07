@@ -22,11 +22,11 @@ angular.module('gambituiApp')
     vm.assets = [];//array to store assets of getAssets call
 
 
-    vm.assetObj = assetInput;//passed in object
+    vm.assetObj = assetInput;//passed in object that comes from main.html
 
 /*------------------------------------------------------Resolve Passed in object---------------------------------------------------------------*/ 
 
-    if (vm.assetObj === null) {
+    if (vm.assetObj === null) {                                     //Handles modal resolve, If assetObj == NULL, set object members to null
                             vm.assetInput = {
                                     deviceTypeID: null,
                                     locationID:null,
@@ -37,23 +37,22 @@ angular.module('gambituiApp')
                                     model:null,
                                     operatingSystem:null,
                             };
-                    } else if (vm.assetObj.id > 0) {
-                            vm.assetInput = vm.assetObj;
+                    } else if (vm.assetObj.id > 0) {                 //Otherwise, If passed in object has an ID> 0
+                            vm.assetInput = vm.assetObj;             //Bind the passed in object to assetInput   
                     }
 
 
 /*------------------------------------------------------Decide to Update Data or Create Data---------------------------------------------------------------*/ 
 
 
- vm.createOrUpdate = function (form, assetInput) {
-                        if (!form.$invalid) {
-                                if(vm.assetInput.id !== null && vm.assetInput.id !== undefined && vm.assetInput.id > 0) {
+ vm.createOrUpdate = function (form, assetInput) {                                                                              //Passes in form and Object         
+                        if (!form.$invalid) {                                                                                   //Validates form
+                                if(vm.assetInput.id !== null && vm.assetInput.id !== undefined && vm.assetInput.id > 0) {       //If form is valid and object exsits previously, update object
                                         update(assetInput);
                                 } else {
-                                        create(assetInput);
+                                        create(assetInput);                                                                     //Otherwise, create new object
                                 }
                         }
-                        activate();
                 };
 
 
@@ -61,9 +60,10 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Update In Modal---------------------------------------------------------------*/ 
 
 
-  function update(Input) {
-                      assetService.editAsset(Input).then(function () {
-                                vm.closeModal(vm.assets);
+  function update(Input) {                                                           //Update function takes a previously created object as input
+                      assetService.editAsset(Input).then(function () {               //assetService Call to edit asset, passes previously created object,    
+                                activate();                                          //Within promise, get assets is called to update array                                   
+                                vm.closeModal(vm.assets);                            //CLoses Madal and passes data to satisfy modal promise   
                                 toastr.info(Input.name + ' was updated');
                         });
                 }
@@ -73,15 +73,15 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Create In Modal---------------------------------------------------------------*/ 
 
  function create(data) {
-     var inList = $filter("filter")(vm.assets,{name:data.name},true);
+     var inList = $filter("filter")(vm.assets,{name:data.name},true);                //creates array of assets that has a name that matches an exsisting name in the assets array   
      //can write own filterby function, return true
-      if(inList.length > 0){
+      if(inList.length > 0){                                                         //If array is greater than 0, Do not allow POST   
         toastr.error("Entry already in Database");
       }
       else{
           postasset(data);
-          vm.closeModal(vm.assets);
-      }
+          vm.closeModal(vm.assets);                                                  //CLose modal and pass assets array to satisfy modal promise           
+         }
     }
 
 
@@ -145,6 +145,7 @@ function postasset(assetObj){
         };
 
         vm.closeModal = function (data) {
+               
                 $uibModalInstance.close(data);
         };
 }

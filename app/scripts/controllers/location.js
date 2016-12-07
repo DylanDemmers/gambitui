@@ -66,6 +66,7 @@ angular.module('gambituiApp')
         .catch(failure)
 
     function success(result){
+           vm.newType = null;
            activate();
           }
     }
@@ -86,6 +87,7 @@ angular.module('gambituiApp')
 
 
   activate();
+  
 }
 
 
