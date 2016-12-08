@@ -1,6 +1,5 @@
 (function(){ 
-
-
+  
 'use strict';
 
 /**
@@ -10,7 +9,6 @@
  * # assetService
  * Factory in the gambituiApp.
  */
-
 
 /*-------------------------------------------------------------------Asset Service Setup--------------------------------------------------------------------------- */
 angular.module('gambituiApp')
@@ -24,12 +22,9 @@ angular.module('gambituiApp')
                   editAsset: editAsset,
                 }
 
-
-
-
 /*-------------------------------------------------------------------Get Assets--------------------------------------------------------------------------- */
                 function getAssets(){ 
-                  return $http.get("http://gambitapidev.azurewebsites.net/api/ITAssets")
+                  return $http.get(api.path + "ITAssets")
                   .then(success)
                   .catch(failure)
                 }
@@ -45,7 +40,7 @@ angular.module('gambituiApp')
 
                 function postAsset(Asset){
                   return $http({
-                    url: "http://gambitapidev.azurewebsites.net/api/ITAssets",
+                    url: api.path + "ITAssets",
                     method: 'POST',
                     data: Asset,
                     headers:{'Content-Type': 'application/json'}
@@ -68,7 +63,7 @@ angular.module('gambituiApp')
 
             function editAsset(updatedAsset) {
                 return $http({
-                            url: "http://gambitapidev.azurewebsites.net/api/ITAssets/" + updatedAsset.id,
+                            url: api.path + "ITAssets/" + updatedAsset.id,
                             method: 'PUT',
                             data: updatedAsset,
                             headers: {'Content-Type': 'application/json'}

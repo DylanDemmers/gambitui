@@ -25,7 +25,7 @@ angular.module('gambituiApp')
 
 /*------------------------------------------------------Get Call to DB---------------------------------------------------------------*/ 
     function getLocations (){
-      return $http.get("http://gambitapidev.azurewebsites.net/api/Location_lk")
+      return $http.get(api.path + "Location_lk")
       .then(success)
       .catch(failure)
     }
@@ -40,7 +40,7 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Post Call to DB-------------------------------------------------------------------*/
   function postLocation(Location) {
                     return $http({
-                        url: "http://gambitapidev.azurewebsites.net/api/Location_lk",
+                        url: api.path + "Location_lk",
                         method: 'POST',
                         data: Location,
                         headers: {'Content-Type': 'application/json'}
@@ -64,7 +64,7 @@ angular.module('gambituiApp')
 
    function deleteLocation(Location) {
                         return $http({
-                            url: "http://gambitapidev.azurewebsites.net/api/Location_lk/" + Location.id,
+                            url: api.path + "Location_lk/" + Location.id,
                             method: 'DELETE',
                             headers: {'Content-Type': 'application/json'}
                         })

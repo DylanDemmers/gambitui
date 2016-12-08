@@ -5,8 +5,6 @@
         .module('gambituiApp')
         .controller('header', header);
 
-        header.$inject = ['$location', 'adalAuthenticationService'];
-
         function header($location,adalAuthenticationService) {
             var vm = this;
             vm.isActive = function (viewLocation) {

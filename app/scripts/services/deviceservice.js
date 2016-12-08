@@ -24,7 +24,7 @@ angular.module('gambituiApp')
 
 /*------------------------------------------------------Get Call to DB---------------------------------------------------------------*/ 
     function getDevices(){
-      return $http.get("http://gambitapidev.azurewebsites.net/api/DeviceType_lk")
+      return $http.get(api.path + "DeviceType_lk")
         .then(success)
         .catch(failure)
   }
@@ -39,7 +39,7 @@ angular.module('gambituiApp')
 /*------------------------------------------------------Post Call to DB-------------------------------------------------------------------*/
     function postdevicetype(DeviceType) {
                     return $http({
-                        url: "http://gambitapidev.azurewebsites.net/api/DeviceType_lk",
+                        url: api.path + "DeviceType_lk",
                         method: 'POST',
                         data: DeviceType,
                         headers: {'Content-Type': 'application/json'}
@@ -61,7 +61,7 @@ angular.module('gambituiApp')
 
     function deleteDevice(DeviceType) {
                     return $http({
-                            url: "http://gambitapidev.azurewebsites.net/api/DeviceType_lk/" + DeviceType.id,
+                            url: api.path + "DeviceType_lk/" + DeviceType.id,
                             method: 'DELETE',
                             headers: {'Content-Type': 'application/json'}
                         })

@@ -11,7 +11,7 @@
           <div class="simple-form">
             <div class="col-sm-3">
                 <select class = "form form-control" name="Branches" ng-model="main.branchSearch" ng-change = "main.onDropdownSelect(main.branchSearch)">
-                    <option value = "" ng-selected="main.branchSearch == "" ">Search Device Name</option>
+                    <option value = "" ng-selected="main.branchSearch = """>Search Device Name</option>
                     <option ng-repeat="x in main.branches" value = {{x.id}}>{{x.branch}}</option>
                 </select>
             </div>

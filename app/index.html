@@ -50,7 +50,7 @@
             </ul>
              <ul class="nav navbar-nav navbar-right" style="padding-right:25px;">
                 <li ng-if="userInfo.isAuthenticated"><a href="#/">Welcome {{userInfo.profile.given_name}}</a></li>
-                <li ng-if="userInfo.isAuthenticated"><a href="" data-ng-click="vm.logout()">Logout</a></li>
+                <li ng-if="userInfo.isAuthenticated"><a href="" data-ng-click="header.logout()">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -86,6 +86,7 @@
     <script src="bower_components/angular-ui/build/angular-ui.js"></script>
     <script src="bower_components/toastr/toastr.js"></script>
     <script src="bower_components/adal-angular/dist/adal.min.js"></script>
+    <script src="bower_components/adal-angular/dist/adal-angular.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
 
@@ -97,6 +98,8 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/release.js"></script>
+        <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/branchservice.js"></script>
@@ -107,8 +110,8 @@
         <script src="scripts/controllers/branches.js"></script>
         <script src="scripts/services/assetservice.js"></script>
         <script src="scripts/controllers/asset.js"></script>
-        <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/devicecreatemodal.js"></script>
+        
         <!-- endbuild -->
 </body>
 </html>

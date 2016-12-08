@@ -16,42 +16,43 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'AdalAngular',
   ])
-  .config(['$routeProvider', function ($routeProvider){
+  .config(['$routeProvider' , 'adalAuthenticationServiceProvider' , '$httpProvider', function ($routeProvider, adalAuthenticationServiceProvider, $httpProvider){
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main',
-       // requireADLogin: true
+       requireADLogin: true
       })
   
       .when('/deviceType', {
         templateUrl: 'views/devicetype.html',
         controller: 'DevicetypeCtrl',
         controllerAs: 'deviceType',
-       // requireADLogin: true
+       requireADLogin: true
       })
     
       .when('/location', {
         templateUrl: 'views/location.html',
         controller: 'LocationCtrl',
         controllerAs: 'location',
-       // requireADLogin: true
+       requireADLogin: true
       })
    
       .when('/branches', {
         templateUrl: 'views/branches.html',
         controller: 'BranchesCtrl',
         controllerAs: 'branches',
-        //requireADLogin: true
+        requireADLogin: true
       })
       .when('/asset', {
         templateUrl: 'views/asset.html',
         controller: 'AssetCtrl',
         controllerAs: 'asset',
-       // requireADLogin: true
+        requireADLogin: true
       })
       .when('/deviceCreateModal', {
         templateUrl: 'views/devicecreatemodal.html',
@@ -62,9 +63,9 @@ angular
         redirectTo: '/'
       });
 
-      /* adalAuthenticationServiceProvider.init({
+       adalAuthenticationServiceProvider.init({
         tenant: api.adal.tenant,
         clientId: api.adal.clientId, 
-      }, $httpProvider);*/
+      }, $httpProvider);
 
   }]);
